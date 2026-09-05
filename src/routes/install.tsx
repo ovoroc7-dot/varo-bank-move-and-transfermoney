@@ -76,10 +76,7 @@ function InstallScreen() {
   // prompt entirely: show a brief splash, then open the app normally.
   useEffect(() => {
     if (!installed) return;
-    const t = setTimeout(() => {
-      window.location.replace(isLoggedIn() ? "/" : "/login");
-    }, 900);
-    return () => clearTimeout(t);
+    window.location.replace(isLoggedIn() ? "/" : "/login");
   }, [installed]);
 
   // When the app is already opened/installed, show only a clean splash
