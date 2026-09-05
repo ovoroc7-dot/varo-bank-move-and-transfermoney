@@ -2,7 +2,7 @@ import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ChevronDown, Search, SlidersHorizontal } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
-import { useAccounts, formatUSD, type AccountId } from "@/lib/balances";
+import { useAccounts, useTransactions, formatUSD, type AccountId, type Txn } from "@/lib/balances";
 import emptyActivity from "@/assets/varo/empty-activity.png.asset.json";
 
 export const Route = createFileRoute("/transaction-history")({
@@ -47,6 +47,26 @@ function TransactionHistoryScreen() {
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const account = accounts.find((a) => a.id === accountId) ?? accounts[0]!;
+  const transactions = useTransactions();
+
+  const q = query.trim().toLowerCase();
+  const visible = transactions.filter(
+    (t) =>
+      t.accountId === account.id &&
+      (filter === "all" || t.direction === filter) &&
+      (!q || t.title.toLowerCase().includes(q) || t.detail.toLowerCase().includes(q)),
+  );
+
+  const groups = new Map<string, Txn[]>();
+  for (const t of visible) {
+    const label = new Date(t.date).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+    });
+    const list = groups.get(label) ?? [];
+    list.push(t);
+    groups.set(label, list);
+  }
 
   return (
     <div className="min-h-screen bg-background pb-16">
