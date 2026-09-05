@@ -111,6 +111,18 @@ export function transfer(from: AccountId, to: AccountId, amount: number): boolea
   return true;
 }
 
+export function spend(from: AccountId, amount: number): boolean {
+  if (!hydrated) {
+    hydrated = true;
+    state = read();
+  }
+  if (amount <= 0 || state[from] < amount) return false;
+  state = { ...state, [from]: state[from] - amount };
+  persist();
+  emit();
+  return true;
+}
+
 export function formatUSD(value: number): string {
   return value.toLocaleString("en-US", {
     style: "currency",
