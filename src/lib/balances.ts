@@ -123,6 +123,74 @@ export function spend(from: AccountId, amount: number): boolean {
   return true;
 }
 
+// --- Transaction ledger (persisted) ---
+
+export type Txn = {
+  id: string;
+  accountId: AccountId;
+  title: string;
+  detail: string;
+  amount: number;
+  direction: "out" | "in";
+  date: string; // ISO
+};
+
+const TX_KEY = "varo_transactions";
+
+let txState: Txn[] = [];
+let txHydrated = false;
+const txListeners = new Set<() => void>();
+let txSnapshot: Txn[] = [];
+const txServerSnapshot: Txn[] = [];
+
+function txRead(): Txn[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(TX_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as Txn[];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function txSubscribe(listener: () => void) {
+  if (!txHydrated) {
+    txHydrated = true;
+    txState = txRead();
+    txSnapshot = txState;
+  }
+  txListeners.add(listener);
+  return () => {
+    txListeners.delete(listener);
+  };
+}
+
+export function useTransactions(): Txn[] {
+  return useSyncExternalStore(txSubscribe, () => txSnapshot, () => txServerSnapshot);
+}
+
+export function addTransaction(tx: Omit<Txn, "id" | "date">) {
+  if (!txHydrated) {
+    txHydrated = true;
+    txState = txRead();
+  }
+  const entry: Txn = {
+    ...tx,
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    date: new Date().toISOString(),
+  };
+  txState = [entry, ...txState];
+  txSnapshot = txState;
+  try {
+    window.localStorage.setItem(TX_KEY, JSON.stringify(txState));
+  } catch {
+    /* ignore */
+  }
+  for (const l of txListeners) l();
+}
+
 export function formatUSD(value: number): string {
   return value.toLocaleString("en-US", {
     style: "currency",
