@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Share, Plus } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
@@ -85,10 +85,12 @@ function InstallScreen() {
 
   // When the app is already installed/opened (standalone), skip the install
   // interface entirely: show only the splash, then open the app/login.
+  // Client-side navigation avoids a full page reload (no white flash).
+  const router = useRouter();
   useEffect(() => {
     if (!installed) return;
-    window.location.replace(isLoggedIn() ? "/" : "/login");
-  }, [installed]);
+    router.navigate({ to: isLoggedIn() ? "/" : "/login", replace: true });
+  }, [installed, router]);
 
   // Before the standalone check resolves (SSR + first client paint), and once
   // installed is confirmed, show only the clean Varo splash — never the install UI.
