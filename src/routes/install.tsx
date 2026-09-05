@@ -41,9 +41,19 @@ function isInStandaloneMode(): boolean {
   );
 }
 
+function Splash() {
+  return (
+    <div className="bg-splash flex min-h-screen flex-col items-center justify-center text-center text-splash-foreground">
+      <h1 className="font-display text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
+    </div>
+  );
+}
+
 function InstallScreen() {
+  // null = not yet checked (SSR / pre-hydration). Render the clean splash while
+  // we resolve, so an installed app never flashes the install interface.
+  const [installed, setInstalled] = useState<boolean | null>(null);
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
-  const [installed, setInstalled] = useState(isInStandaloneMode());
   const [ios] = useState(isIOS);
 
   useEffect(() => {
@@ -51,6 +61,7 @@ function InstallScreen() {
       setInstalled(true);
       return;
     }
+    setInstalled(false);
     const onBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferred(e as BeforeInstallPromptEvent);
@@ -73,20 +84,16 @@ function InstallScreen() {
   };
 
   // When the app is already installed/opened (standalone), skip the install
-  // prompt entirely: show a brief splash, then open the app normally.
+  // interface entirely: show only the splash, then open the app/login.
   useEffect(() => {
     if (!installed) return;
     window.location.replace(isLoggedIn() ? "/" : "/login");
   }, [installed]);
 
-  // When the app is already opened/installed, show only a clean splash
-  // (Varo wordmark, no app icon) and load straight to the app/login.
-  if (installed) {
-    return (
-      <div className="bg-splash flex min-h-screen flex-col items-center justify-center text-center text-splash-foreground">
-        <h1 className="font-display text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
-      </div>
-    );
+  // Before the standalone check resolves (SSR + first client paint), and once
+  // installed is confirmed, show only the clean Varo splash — never the install UI.
+  if (installed !== false) {
+    return <Splash />;
   }
 
   return (
