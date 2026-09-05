@@ -115,16 +115,6 @@ function InstallScreen() {
           </button>
         )}
       </div>
-
-      <div className="flex w-full max-w-xs items-center justify-center gap-3 text-[13px] font-bold">
-        <Link to="/login" className="text-splash-foreground underline">
-          Log in
-        </Link>
-        <span className="text-splash-foreground/40">·</span>
-        <Link to="/signup" className="text-splash-foreground underline">
-          Sign up
-        </Link>
-      </div>
     </div>
   );
 }
