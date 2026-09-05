@@ -61,9 +61,12 @@ function contactMatches(c: Contact, q: string) {
 
 function isValidRecipient(value: string) {
   const v = value.trim();
+  if (!v) return false;
   if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return true;
   const digits = v.replace(/\D/g, "");
-  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+  if (digits.length === 10 || (digits.length === 11 && digits.startsWith("1"))) return true;
+  // Any other non-empty value is treated as a name recipient
+  return true;
 }
 
 function SendScreen() {
