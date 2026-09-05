@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Share, Plus } from "lucide-react";
-import { art } from "@/components/varo/art";
 
 export const Route = createFileRoute("/install")({
   head: () => ({
