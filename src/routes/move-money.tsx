@@ -77,9 +77,12 @@ function MoveMoneyScreen() {
               const href =
                 row.title === "Transfer"
                   ? "/transfer"
-                  : row.title === "Manage bills"
-                    ? "/pay-bills"
-                    : null;
+                  : row.title === "Varo to Anyone"
+                    ? "/send"
+                    : row.title === "Manage bills"
+                      ? "/pay-bills"
+                      : null;
+
               return href ? (
                 <Link to={href} className={cls}>
                   {inner}
