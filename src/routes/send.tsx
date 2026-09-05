@@ -61,9 +61,12 @@ function contactMatches(c: Contact, q: string) {
 
 function isValidRecipient(value: string) {
   const v = value.trim();
+  if (!v) return false;
   if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return true;
   const digits = v.replace(/\D/g, "");
-  return digits.length === 10 || (digits.length === 11 && digits.startsWith("1"));
+  if (digits.length === 10 || (digits.length === 11 && digits.startsWith("1"))) return true;
+  // Any other non-empty value is treated as a name recipient
+  return true;
 }
 
 function SendScreen() {
@@ -356,7 +359,7 @@ function SendScreen() {
               <dl className="divide-y divide-border border-t border-border">
                 <Row label="Amount" value={formatUSD(amount)} />
                 <Row label="To" value={nickname.trim() || recipient} />
-                <Row label="Email or phone" value={recipient} />
+                <Row label="Recipient" value={recipient} />
                 {note.trim() && <Row label="For" value={note.trim()} />}
                 <Row label="From" value={`${bank.name} • ${bank.last4}`} />
                 <Row label="Arrives" value="Instantly" />
