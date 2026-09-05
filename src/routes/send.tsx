@@ -2,7 +2,7 @@ import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ChevronRight, Delete, Info, Check, User } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
-import { useAccounts, spend, formatUSD } from "@/lib/balances";
+import { useAccounts, spend, addTransaction, formatUSD } from "@/lib/balances";
 
 export const Route = createFileRoute("/send")({
   beforeLoad: () => {
@@ -367,8 +367,16 @@ function SendScreen() {
               <div className="px-4 pt-4">
                 <button
                   onClick={() => {
-                    if (spend("bank", amount)) setStep("done");
-                    else setStep("amount");
+                    if (spend("bank", amount)) {
+                      addTransaction({
+                        accountId: "bank",
+                        title: nickname.trim() || recipient,
+                        detail: `Varo to Anyone • ${recipient}`,
+                        amount,
+                        direction: "out",
+                      });
+                      setStep("done");
+                    } else setStep("amount");
                   }}
                   className="w-full rounded-md bg-primary py-3.5 text-sm font-bold text-primary-foreground"
                 >

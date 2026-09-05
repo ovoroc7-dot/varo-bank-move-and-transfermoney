@@ -2,7 +2,7 @@ import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, ChevronDown, Search, SlidersHorizontal } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
-import { useAccounts, formatUSD, type AccountId } from "@/lib/balances";
+import { useAccounts, useTransactions, formatUSD, type AccountId, type Txn } from "@/lib/balances";
 import emptyActivity from "@/assets/varo/empty-activity.png.asset.json";
 
 export const Route = createFileRoute("/transaction-history")({
@@ -47,6 +47,26 @@ function TransactionHistoryScreen() {
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const account = accounts.find((a) => a.id === accountId) ?? accounts[0]!;
+  const transactions = useTransactions();
+
+  const q = query.trim().toLowerCase();
+  const visible = transactions.filter(
+    (t) =>
+      t.accountId === account.id &&
+      (filter === "all" || t.direction === filter) &&
+      (!q || t.title.toLowerCase().includes(q) || t.detail.toLowerCase().includes(q)),
+  );
+
+  const groups = new Map<string, Txn[]>();
+  for (const t of visible) {
+    const label = new Date(t.date).toLocaleDateString("en-US", {
+      month: "long",
+      year: "numeric",
+    });
+    const list = groups.get(label) ?? [];
+    list.push(t);
+    groups.set(label, list);
+  }
 
   return (
     <div className="min-h-screen bg-background pb-16">
@@ -120,24 +140,71 @@ function TransactionHistoryScreen() {
             ))}
           </div>
 
-          <h2 className="mb-2 mt-6 text-sm font-bold">September 2026</h2>
-          <div className="rounded-lg border border-border py-12 text-center">
-            <img
-              src={emptyActivity.url}
-              alt=""
-              aria-hidden="true"
-              className="mx-auto h-24 w-auto object-contain"
-            />
-            <p className="mt-5 px-8 text-[13px] text-muted-foreground">
-              {query
-                ? `No transactions match "${query}".`
-                : filter === "in"
-                  ? "No money in for this account yet."
-                  : filter === "out"
-                    ? "No money out for this account yet."
-                    : "Your activity will be shown here"}
-            </p>
-          </div>
+          {groups.size > 0 ? (
+            [...groups.entries()].map(([label, txns]) => (
+              <section key={label}>
+                <h2 className="mb-2 mt-6 text-sm font-bold">{label}</h2>
+                <ul className="divide-y divide-border rounded-lg border border-border">
+                  {txns.map((t) => (
+                    <li key={t.id} className="flex items-center gap-3 px-4 py-3.5">
+                      <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent text-[13px] font-bold text-accent-foreground">
+                        {t.title
+                          .split(" ")
+                          .map((p) => p[0])
+                          .join("")
+                          .slice(0, 2)
+                          .toUpperCase()}
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-medium">{t.title}</span>
+                        <span className="block truncate text-[12px] text-muted-foreground">
+                          {t.detail}
+                        </span>
+                        <span className="block text-[11px] text-muted-foreground">
+                          {new Date(t.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </span>
+                      </span>
+                      <span
+                        className={`text-sm font-bold ${
+                          t.direction === "in" ? "text-[#0d8a3c]" : "text-foreground"
+                        }`}
+                      >
+                        {t.direction === "in" ? "+" : "-"}
+                        {formatUSD(t.amount)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))
+          ) : (
+            <>
+              <h2 className="mb-2 mt-6 text-sm font-bold">
+                {new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+              </h2>
+              <div className="rounded-lg border border-border py-12 text-center">
+                <img
+                  src={emptyActivity.url}
+                  alt=""
+                  aria-hidden="true"
+                  className="mx-auto h-24 w-auto object-contain"
+                />
+                <p className="mt-5 px-8 text-[13px] text-muted-foreground">
+                  {query
+                    ? `No transactions match "${query}".`
+                    : filter === "in"
+                      ? "No money in for this account yet."
+                      : filter === "out"
+                        ? "No money out for this account yet."
+                        : "Your activity will be shown here"}
+                </p>
+              </div>
+            </>
+          )}
 
           <p className="mt-6 text-center text-[12px] leading-snug text-muted-foreground">
             Transactions are shown for the last 24 months. Pending items may take up to 3 business
