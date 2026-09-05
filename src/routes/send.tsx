@@ -35,6 +35,30 @@ const MIN = 1;
 
 type Step = "intro" | "recipient" | "amount" | "review" | "done";
 
+type Contact = { name: string; handle: string };
+
+const CONTACTS: Contact[] = [
+  { name: "Ava Johnson", handle: "ava.johnson@email.com" },
+  { name: "Marcus Lee", handle: "(415) 555-0132" },
+  { name: "Sofia Ramirez", handle: "sofia.ramirez@email.com" },
+  { name: "Daniel Kim", handle: "(646) 555-0174" },
+  { name: "Emily Carter", handle: "emily.carter@email.com" },
+  { name: "Jamal Thompson", handle: "(312) 555-0198" },
+  { name: "Grace Nguyen", handle: "grace.nguyen@email.com" },
+  { name: "Chris Walker", handle: "(206) 555-0127" },
+];
+
+function contactMatches(c: Contact, q: string) {
+  const query = q.trim().toLowerCase();
+  if (!query) return true;
+  const digits = query.replace(/\D/g, "");
+  return (
+    c.name.toLowerCase().includes(query) ||
+    c.handle.toLowerCase().includes(query) ||
+    (digits.length > 0 && c.handle.replace(/\D/g, "").includes(digits))
+  );
+}
+
 function isValidRecipient(value: string) {
   const v = value.trim();
   if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return true;
@@ -133,6 +157,7 @@ function SendScreen() {
 
   if (step === "recipient") {
     const valid = isValidRecipient(query);
+    const matches = CONTACTS.filter((c) => contactMatches(c, query));
     return (
       <div className="min-h-screen bg-background">
         <div className="mx-auto flex min-h-screen max-w-md flex-col bg-surface">
@@ -151,7 +176,7 @@ function SendScreen() {
             />
           </div>
 
-          {valid ? (
+          {valid && (
             <div className="mt-5 px-4">
               <p className="text-[12px] font-bold">New recipient</p>
               <button
@@ -168,26 +193,48 @@ function SendScreen() {
                 <ChevronRight className="size-4 text-muted-foreground" />
               </button>
             </div>
+          )}
+
+          {matches.length > 0 ? (
+            <div className="mt-5 px-4">
+              <p className="text-[12px] font-bold">
+                {query.trim() ? "Suggested recipients" : "Recent recipients"}
+              </p>
+              <div className="mt-1 divide-y divide-border">
+                {matches.map((c) => (
+                  <button
+                    key={c.handle}
+                    onClick={() => {
+                      setRecipient(c.handle);
+                      setNickname(c.name);
+                      setStep("amount");
+                    }}
+                    className="flex w-full items-center gap-3 py-3 text-left"
+                  >
+                    <span className="flex size-9 items-center justify-center rounded-full bg-accent text-[13px] font-bold text-accent-foreground">
+                      {c.name
+                        .split(" ")
+                        .map((p) => p[0])
+                        .join("")}
+                    </span>
+                    <span className="flex-1">
+                      <span className="block text-sm font-medium">{c.name}</span>
+                      <span className="block text-[12px] text-muted-foreground">
+                        {c.handle}
+                      </span>
+                    </span>
+                    <ChevronRight className="size-4 text-muted-foreground" />
+                  </button>
+                ))}
+              </div>
+            </div>
           ) : (
             <div className="mt-10 px-5">
               <p className="text-center text-[13px] leading-snug text-foreground">
-                To send money to someone new, enter their{" "}
+                No matches. To send money to someone new, enter their{" "}
                 <span className="font-bold">email address</span> or{" "}
                 <span className="font-bold">US phone number.</span>
               </p>
-              <div className="card-surface mt-6 flex items-center gap-3 p-4">
-                <span className="flex-1">
-                  <span className="block text-[13px] leading-snug">
-                    Add your contacts to send money to anyone instantly.
-                  </span>
-                  <span className="mt-1 block text-[12px] font-bold text-primary">
-                    Allow access to contacts ›
-                  </span>
-                </span>
-                <span className="text-2xl" aria-hidden="true">
-                  🙌
-                </span>
-              </div>
             </div>
           )}
         </div>
