@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, navigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Share, Plus } from "lucide-react";
+import { isLoggedIn } from "@/lib/auth-guard";
 
 export const Route = createFileRoute("/install")({
   head: () => ({
