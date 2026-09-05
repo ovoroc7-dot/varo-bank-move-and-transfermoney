@@ -82,6 +82,16 @@ function InstallScreen() {
     return () => clearTimeout(t);
   }, [installed]);
 
+  // When the app is already opened/installed, show only a clean splash
+  // (Varo wordmark, no app icon) and load straight to the app/login.
+  if (installed) {
+    return (
+      <div className="bg-splash flex min-h-screen flex-col items-center justify-center text-center text-splash-foreground">
+        <h1 className="font-display text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-splash flex min-h-screen flex-col items-center px-6 pb-10 text-center text-splash-foreground">
       <div className="flex flex-1 flex-col items-center justify-center">
@@ -92,33 +102,29 @@ function InstallScreen() {
         />
         <h1 className="font-display mt-5 text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
 
-        {installed ? null : (
-          <>
-            <p className="mt-3 max-w-xs text-[15px] leading-snug text-splash-foreground/80">
-              Mobile banking that moves with you. Install the app for instant access to your accounts,
-              savings, and cashback.
+        <p className="mt-3 max-w-xs text-[15px] leading-snug text-splash-foreground/80">
+          Mobile banking that moves with you. Install the app for instant access to your accounts,
+          savings, and cashback.
+        </p>
+        {ios ? (
+          <div className="mt-8 w-full max-w-xs rounded-xl bg-surface/10 p-4 text-left text-[13px]">
+            <p className="flex items-center gap-2">
+              1. Tap the <Share className="size-4" /> Share button in Safari.
             </p>
-            {ios ? (
-              <div className="mt-8 w-full max-w-xs rounded-xl bg-surface/10 p-4 text-left text-[13px]">
-                <p className="flex items-center gap-2">
-                  1. Tap the <Share className="size-4" /> Share button in Safari.
-                </p>
-                <p className="mt-2 flex items-center gap-2">
-                  2. Scroll down and tap <Plus className="size-4" /> "Add to Home Screen".
-                </p>
-                <p className="mt-2">3. Tap "Add" in the top right.</p>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={install}
-                disabled={!deferred}
-                className="mt-8 h-14 w-full max-w-xs rounded-md bg-surface text-[15px] font-bold text-primary transition-opacity disabled:opacity-70"
-              >
-                {deferred ? "Install app" : "Add Varo to your home screen"}
-              </button>
-            )}
-          </>
+            <p className="mt-2 flex items-center gap-2">
+              2. Scroll down and tap <Plus className="size-4" /> "Add to Home Screen".
+            </p>
+            <p className="mt-2">3. Tap "Add" in the top right.</p>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={install}
+            disabled={!deferred}
+            className="mt-8 h-14 w-full max-w-xs rounded-md bg-surface text-[15px] font-bold text-primary transition-opacity disabled:opacity-70"
+          >
+            {deferred ? "Install app" : "Add Varo to your home screen"}
+          </button>
         )}
       </div>
     </div>
