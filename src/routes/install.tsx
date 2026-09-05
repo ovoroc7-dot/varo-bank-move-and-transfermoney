@@ -92,11 +92,7 @@ function InstallScreen() {
         />
         <h1 className="font-display mt-5 text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
 
-        {installed ? (
-          <p className="mt-3 text-[15px] leading-snug text-splash-foreground/70">
-            Opening Varo…
-          </p>
-        ) : (
+        {installed ? null : (
           <>
             <p className="mt-3 max-w-xs text-[15px] leading-snug text-splash-foreground/80">
               Mobile banking that moves with you. Install the app for instant access to your accounts,
