@@ -67,7 +67,13 @@ function HomeScreen() {
       <div className="flex gap-2 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {quickActions.map((action) => {
           const href =
-            action === "Transfer" ? "/transfer" : action === "Pay bills" ? "/pay-bills" : null;
+            action === "Transfer"
+              ? "/transfer"
+              : action === "Pay bills"
+                ? "/pay-bills"
+                : action === "Send money"
+                  ? "/send"
+                  : null;
           return href ? (
             <Link key={action} to={href} className={quickActionClass}>
               {action}
