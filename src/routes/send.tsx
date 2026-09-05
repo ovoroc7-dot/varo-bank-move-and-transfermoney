@@ -157,6 +157,7 @@ function SendScreen() {
 
   if (step === "recipient") {
     const valid = isValidRecipient(query);
+    const matches = CONTACTS.filter((c) => contactMatches(c, query));
     return (
       <div className="min-h-screen bg-background">
         <div className="mx-auto flex min-h-screen max-w-md flex-col bg-surface">
