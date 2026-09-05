@@ -9,7 +9,7 @@ import { isLoggedIn } from "@/lib/auth-guard";
 export const Route = createFileRoute("/")({
   beforeLoad: () => {
     if (!isLoggedIn()) {
-      throw redirect({ to: "/login", replace: true });
+      throw redirect({ to: "/install", replace: true });
     }
   },
   head: () => ({
