@@ -359,7 +359,7 @@ function SendScreen() {
               <dl className="divide-y divide-border border-t border-border">
                 <Row label="Amount" value={formatUSD(amount)} />
                 <Row label="To" value={nickname.trim() || recipient} />
-                <Row label="Email or phone" value={recipient} />
+                <Row label="Recipient" value={recipient} />
                 {note.trim() && <Row label="For" value={note.trim()} />}
                 <Row label="From" value={`${bank.name} • ${bank.last4}`} />
                 <Row label="Arrives" value="Instantly" />
