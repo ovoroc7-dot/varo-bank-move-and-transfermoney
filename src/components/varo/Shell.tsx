@@ -24,7 +24,7 @@ export function Screen({
 
 export function VaroHeader() {
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between bg-background/95 px-4 py-3 backdrop-blur">
+    <header className="sticky top-0 z-30 flex items-center justify-between bg-background/95 px-4 pb-3 pt-[calc(env(safe-area-inset-top)+0.75rem)] backdrop-blur">
       <img src={art.logo} alt="Varo" className="h-7 w-auto object-contain" />
 
       <button className="rounded-full border border-primary px-3 py-1.5 text-xs font-bold text-primary transition-colors active:bg-accent">
@@ -36,7 +36,7 @@ export function VaroHeader() {
 
 export function TitleHeader({ title }: { title: string }) {
   return (
-    <header className="sticky top-0 z-30 bg-background/95 px-4 pb-2 pt-3 backdrop-blur">
+    <header className="sticky top-0 z-30 bg-background/95 px-4 pb-2 pt-[calc(env(safe-area-inset-top)+0.75rem)] backdrop-blur">
       <div className="flex justify-end">
         <Info className="size-5 text-muted-foreground" aria-hidden="true" />
       </div>
