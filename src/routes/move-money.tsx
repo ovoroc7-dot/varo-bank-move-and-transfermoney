@@ -97,15 +97,28 @@ function MoveMoneyScreen() {
 
       <h2 className="mb-2 mt-6 text-sm font-bold">More ways to move money</h2>
       <ul className="card-surface overflow-hidden">
-        {more.map((row) => (
-          <li key={row.title}>
-            <button className="flex w-full items-center gap-3 border-b border-border px-4 py-3.5 text-left last:border-b-0">
+        {more.map((row) => {
+          const cls =
+            "flex w-full items-center gap-3 border-b border-border px-4 py-3.5 text-left last:border-b-0";
+          const inner = (
+            <>
               <Glyph name={row.glyph} />
               <span className="flex-1 text-sm font-medium">{row.title}</span>
               <ChevronRight className="size-4 text-muted-foreground" />
-            </button>
-          </li>
-        ))}
+            </>
+          );
+          return (
+            <li key={row.title}>
+              {row.title === "Transaction history" ? (
+                <Link to="/transaction-history" className={cls}>
+                  {inner}
+                </Link>
+              ) : (
+                <button className={cls}>{inner}</button>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </Screen>
   );
