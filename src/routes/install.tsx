@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Share, Plus } from "lucide-react";
+import { isLoggedIn } from "@/lib/auth-guard";
 
 export const Route = createFileRoute("/install")({
   head: () => ({
@@ -71,6 +72,16 @@ function InstallScreen() {
     setDeferred(null);
   };
 
+  // When the app is already installed/opened (standalone), skip the install
+  // prompt entirely: show a brief splash, then open the app normally.
+  useEffect(() => {
+    if (!installed) return;
+    const t = setTimeout(() => {
+      window.location.replace(isLoggedIn() ? "/" : "/login");
+    }, 900);
+    return () => clearTimeout(t);
+  }, [installed]);
+
   return (
     <div className="bg-splash flex min-h-screen flex-col items-center px-6 pb-10 text-center text-splash-foreground">
       <div className="flex flex-1 flex-col items-center justify-center">
@@ -80,42 +91,38 @@ function InstallScreen() {
           className="h-24 w-24 rounded-3xl shadow-lg ring-1 ring-splash-foreground/20"
         />
         <h1 className="font-display mt-5 text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
-        <p className="mt-3 max-w-xs text-[15px] leading-snug text-splash-foreground/80">
-          Mobile banking that moves with you. Install the app for instant access to your accounts,
-          savings, and cashback.
-        </p>
 
         {installed ? (
-          <div className="mt-8 w-full max-w-xs">
-            <p className="text-[13px] font-medium text-splash-foreground/80">
-              Varo is installed on this device.
-            </p>
-            <Link
-              to="/login"
-              className="mt-4 flex h-14 w-full items-center justify-center rounded-md bg-surface text-[15px] font-bold text-primary"
-            >
-              Open & log in
-            </Link>
-          </div>
-        ) : ios ? (
-          <div className="mt-8 w-full max-w-xs rounded-xl bg-surface/10 p-4 text-left text-[13px]">
-            <p className="flex items-center gap-2">
-              1. Tap the <Share className="size-4" /> Share button in Safari.
-            </p>
-            <p className="mt-2 flex items-center gap-2">
-              2. Scroll down and tap <Plus className="size-4" /> "Add to Home Screen".
-            </p>
-            <p className="mt-2">3. Tap "Add" in the top right.</p>
-          </div>
+          <p className="mt-3 text-[15px] leading-snug text-splash-foreground/70">
+            Opening Varo…
+          </p>
         ) : (
-          <button
-            type="button"
-            onClick={install}
-            disabled={!deferred}
-            className="mt-8 h-14 w-full max-w-xs rounded-md bg-surface text-[15px] font-bold text-primary transition-opacity disabled:opacity-70"
-          >
-            {deferred ? "Install app" : "Add Varo to your home screen"}
-          </button>
+          <>
+            <p className="mt-3 max-w-xs text-[15px] leading-snug text-splash-foreground/80">
+              Mobile banking that moves with you. Install the app for instant access to your accounts,
+              savings, and cashback.
+            </p>
+            {ios ? (
+              <div className="mt-8 w-full max-w-xs rounded-xl bg-surface/10 p-4 text-left text-[13px]">
+                <p className="flex items-center gap-2">
+                  1. Tap the <Share className="size-4" /> Share button in Safari.
+                </p>
+                <p className="mt-2 flex items-center gap-2">
+                  2. Scroll down and tap <Plus className="size-4" /> "Add to Home Screen".
+                </p>
+                <p className="mt-2">3. Tap "Add" in the top right.</p>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={install}
+                disabled={!deferred}
+                className="mt-8 h-14 w-full max-w-xs rounded-md bg-surface text-[15px] font-bold text-primary transition-opacity disabled:opacity-70"
+              >
+                {deferred ? "Install app" : "Add Varo to your home screen"}
+              </button>
+            )}
+          </>
         )}
       </div>
     </div>
