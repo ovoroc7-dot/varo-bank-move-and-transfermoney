@@ -14,6 +14,7 @@ import { Route as AccountNumbersRouteImport } from './routes/account-numbers'
 import { Route as AddCashRouteImport } from './routes/add-cash'
 import { Route as CashbackRouteImport } from './routes/cashback'
 import { Route as FundInstantlyRouteImport } from './routes/fund-instantly'
+import { Route as InstallRouteImport } from './routes/install'
 import { Route as LinkedAccountsRouteImport } from './routes/linked-accounts'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ManageCardsRouteImport } from './routes/manage-cards'
@@ -49,6 +50,11 @@ const CashbackRoute = CashbackRouteImport.update({
 const FundInstantlyRoute = FundInstantlyRouteImport.update({
   id: '/fund-instantly',
   path: '/fund-instantly',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstallRoute = InstallRouteImport.update({
+  id: '/install',
+  path: '/install',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LinkedAccountsRoute = LinkedAccountsRouteImport.update({
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/add-cash': typeof AddCashRoute
   '/cashback': typeof CashbackRoute
   '/fund-instantly': typeof FundInstantlyRoute
+  '/install': typeof InstallRoute
   '/linked-accounts': typeof LinkedAccountsRoute
   '/login': typeof LoginRoute
   '/manage-cards': typeof ManageCardsRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/add-cash': typeof AddCashRoute
   '/cashback': typeof CashbackRoute
   '/fund-instantly': typeof FundInstantlyRoute
+  '/install': typeof InstallRoute
   '/linked-accounts': typeof LinkedAccountsRoute
   '/login': typeof LoginRoute
   '/manage-cards': typeof ManageCardsRoute
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/add-cash': typeof AddCashRoute
   '/cashback': typeof CashbackRoute
   '/fund-instantly': typeof FundInstantlyRoute
+  '/install': typeof InstallRoute
   '/linked-accounts': typeof LinkedAccountsRoute
   '/login': typeof LoginRoute
   '/manage-cards': typeof ManageCardsRoute
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/add-cash'
     | '/cashback'
     | '/fund-instantly'
+    | '/install'
     | '/linked-accounts'
     | '/login'
     | '/manage-cards'
@@ -188,6 +198,7 @@ export interface FileRouteTypes {
     | '/add-cash'
     | '/cashback'
     | '/fund-instantly'
+    | '/install'
     | '/linked-accounts'
     | '/login'
     | '/manage-cards'
@@ -206,6 +217,7 @@ export interface FileRouteTypes {
     | '/add-cash'
     | '/cashback'
     | '/fund-instantly'
+    | '/install'
     | '/linked-accounts'
     | '/login'
     | '/manage-cards'
@@ -225,6 +237,7 @@ export interface RootRouteChildren {
   AddCashRoute: typeof AddCashRoute
   CashbackRoute: typeof CashbackRoute
   FundInstantlyRoute: typeof FundInstantlyRoute
+  InstallRoute: typeof InstallRoute
   LinkedAccountsRoute: typeof LinkedAccountsRoute
   LoginRoute: typeof LoginRoute
   ManageCardsRoute: typeof ManageCardsRoute
@@ -273,6 +286,13 @@ declare module '@tanstack/react-router' {
       path: '/fund-instantly'
       fullPath: '/fund-instantly'
       preLoaderRoute: typeof FundInstantlyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/install': {
+      id: '/install'
+      path: '/install'
+      fullPath: '/install'
+      preLoaderRoute: typeof InstallRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/linked-accounts': {
@@ -361,6 +381,7 @@ const rootRouteChildren: RootRouteChildren = {
   AddCashRoute: AddCashRoute,
   CashbackRoute: CashbackRoute,
   FundInstantlyRoute: FundInstantlyRoute,
+  InstallRoute: InstallRoute,
   LinkedAccountsRoute: LinkedAccountsRoute,
   LoginRoute: LoginRoute,
   ManageCardsRoute: ManageCardsRoute,
