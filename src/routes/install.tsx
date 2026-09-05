@@ -75,8 +75,12 @@ function InstallScreen() {
   return (
     <div className="bg-splash flex min-h-screen flex-col items-center px-6 pb-10 text-center text-splash-foreground">
       <div className="flex flex-1 flex-col items-center justify-center">
-        <img src={art.logo} alt="Varo" className="h-16 w-auto object-contain brightness-0 invert" />
-        <h1 className="font-display mt-6 text-4xl font-black tracking-tight">Varo</h1>
+        <img
+          src="/icon-192.png"
+          alt="Varo app icon"
+          className="h-24 w-24 rounded-3xl shadow-lg ring-1 ring-splash-foreground/20"
+        />
+        <h1 className="font-display mt-5 text-4xl font-black tracking-tight text-splash-foreground">Varo</h1>
         <p className="mt-3 max-w-xs text-[15px] leading-snug text-splash-foreground/80">
           Mobile banking that moves with you. Install the app for instant access to your accounts,
           savings, and cashback.
