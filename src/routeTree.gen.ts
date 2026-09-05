@@ -24,6 +24,7 @@ import { Route as PayBillsRouteImport } from './routes/pay-bills'
 import { Route as PersonalDetailsRouteImport } from './routes/personal-details'
 import { Route as SendRouteImport } from './routes/send'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as TransactionHistoryRouteImport } from './routes/transaction-history'
 import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as VaroCardRouteImport } from './routes/varo-card'
 import { Route as AccountIdRouteImport } from './routes/account.$id'
@@ -103,6 +104,11 @@ const SignupRoute = SignupRouteImport.update({
   path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TransactionHistoryRoute = TransactionHistoryRouteImport.update({
+  id: '/transaction-history',
+  path: '/transaction-history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TransferRoute = TransferRouteImport.update({
   id: '/transfer',
   path: '/transfer',
@@ -135,6 +141,7 @@ export interface FileRoutesByFullPath {
   '/personal-details': typeof PersonalDetailsRoute
   '/send': typeof SendRoute
   '/signup': typeof SignupRoute
+  '/transaction-history': typeof TransactionHistoryRoute
   '/transfer': typeof TransferRoute
   '/varo-card': typeof VaroCardRoute
   '/account/$id': typeof AccountIdRoute
@@ -155,6 +162,7 @@ export interface FileRoutesByTo {
   '/personal-details': typeof PersonalDetailsRoute
   '/send': typeof SendRoute
   '/signup': typeof SignupRoute
+  '/transaction-history': typeof TransactionHistoryRoute
   '/transfer': typeof TransferRoute
   '/varo-card': typeof VaroCardRoute
   '/account/$id': typeof AccountIdRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/personal-details': typeof PersonalDetailsRoute
   '/send': typeof SendRoute
   '/signup': typeof SignupRoute
+  '/transaction-history': typeof TransactionHistoryRoute
   '/transfer': typeof TransferRoute
   '/varo-card': typeof VaroCardRoute
   '/account/$id': typeof AccountIdRoute
@@ -198,6 +207,7 @@ export interface FileRouteTypes {
     | '/personal-details'
     | '/send'
     | '/signup'
+    | '/transaction-history'
     | '/transfer'
     | '/varo-card'
     | '/account/$id'
@@ -218,6 +228,7 @@ export interface FileRouteTypes {
     | '/personal-details'
     | '/send'
     | '/signup'
+    | '/transaction-history'
     | '/transfer'
     | '/varo-card'
     | '/account/$id'
@@ -238,6 +249,7 @@ export interface FileRouteTypes {
     | '/personal-details'
     | '/send'
     | '/signup'
+    | '/transaction-history'
     | '/transfer'
     | '/varo-card'
     | '/account/$id'
@@ -259,6 +271,7 @@ export interface RootRouteChildren {
   PersonalDetailsRoute: typeof PersonalDetailsRoute
   SendRoute: typeof SendRoute
   SignupRoute: typeof SignupRoute
+  TransactionHistoryRoute: typeof TransactionHistoryRoute
   TransferRoute: typeof TransferRoute
   VaroCardRoute: typeof VaroCardRoute
   AccountIdRoute: typeof AccountIdRoute
@@ -371,6 +384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/transaction-history': {
+      id: '/transaction-history'
+      path: '/transaction-history'
+      fullPath: '/transaction-history'
+      preLoaderRoute: typeof TransactionHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/transfer': {
       id: '/transfer'
       path: '/transfer'
@@ -411,6 +431,7 @@ const rootRouteChildren: RootRouteChildren = {
   PersonalDetailsRoute: PersonalDetailsRoute,
   SendRoute: SendRoute,
   SignupRoute: SignupRoute,
+  TransactionHistoryRoute: TransactionHistoryRoute,
   TransferRoute: TransferRoute,
   VaroCardRoute: VaroCardRoute,
   AccountIdRoute: AccountIdRoute,
