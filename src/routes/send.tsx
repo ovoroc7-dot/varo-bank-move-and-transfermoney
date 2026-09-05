@@ -35,6 +35,30 @@ const MIN = 1;
 
 type Step = "intro" | "recipient" | "amount" | "review" | "done";
 
+type Contact = { name: string; handle: string };
+
+const CONTACTS: Contact[] = [
+  { name: "Ava Johnson", handle: "ava.johnson@email.com" },
+  { name: "Marcus Lee", handle: "(415) 555-0132" },
+  { name: "Sofia Ramirez", handle: "sofia.ramirez@email.com" },
+  { name: "Daniel Kim", handle: "(646) 555-0174" },
+  { name: "Emily Carter", handle: "emily.carter@email.com" },
+  { name: "Jamal Thompson", handle: "(312) 555-0198" },
+  { name: "Grace Nguyen", handle: "grace.nguyen@email.com" },
+  { name: "Chris Walker", handle: "(206) 555-0127" },
+];
+
+function contactMatches(c: Contact, q: string) {
+  const query = q.trim().toLowerCase();
+  if (!query) return true;
+  const digits = query.replace(/\D/g, "");
+  return (
+    c.name.toLowerCase().includes(query) ||
+    c.handle.toLowerCase().includes(query) ||
+    (digits.length > 0 && c.handle.replace(/\D/g, "").includes(digits))
+  );
+}
+
 function isValidRecipient(value: string) {
   const v = value.trim();
   if (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return true;
