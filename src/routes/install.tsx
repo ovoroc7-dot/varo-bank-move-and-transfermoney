@@ -89,7 +89,7 @@ function InstallScreen() {
   const router = useRouter();
   useEffect(() => {
     if (!installed) return;
-    router.replace({ to: isLoggedIn() ? "/" : "/login" });
+    router.navigate({ to: isLoggedIn() ? "/" : "/login", replace: true });
   }, [installed, router]);
 
   // Before the standalone check resolves (SSR + first client paint), and once
