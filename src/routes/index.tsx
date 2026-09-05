@@ -8,9 +8,14 @@ import { isLoggedIn } from "@/lib/auth-guard";
 
 export const Route = createFileRoute("/")({
   beforeLoad: () => {
-    if (!isLoggedIn()) {
-      throw redirect({ to: "/install", replace: true });
-    }
+    if (isLoggedIn()) return;
+    // Already installed/opened from the home screen: skip the install page
+    // hop entirely and go straight to login for a clean, glitch-free open.
+    const standalone =
+      typeof window !== "undefined" &&
+      (window.matchMedia?.("(display-mode: standalone)").matches ||
+        (navigator as Navigator & { standalone?: boolean }).standalone === true);
+    throw redirect({ to: standalone ? "/login" : "/install", replace: true });
   },
   head: () => ({
     meta: [
