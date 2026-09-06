@@ -2,9 +2,9 @@ import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Bell, CalendarDays, RotateCw, Sparkles, X } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
-import billsHero from "@/assets/varo/bills-hero.png.asset.json";
-import billsDetect from "@/assets/varo/bills-detect.png.asset.json";
-import billsPlaid from "@/assets/varo/bills-plaid.png.asset.json";
+import billsHero from "@/assets/varo/bills-hero.png";
+import billsDetect from "@/assets/varo/bills-detect.png";
+import billsPlaid from "@/assets/varo/bills-plaid.png";
 
 export const Route = createFileRoute("/pay-bills")({
   beforeLoad: () => {
@@ -54,7 +54,7 @@ function PayBillsScreen() {
       <div className="min-h-screen bg-background">
         <div className="mx-auto max-w-md pb-8">
           <div className="relative">
-            <img src={billsHero.url} alt="" aria-hidden="true" className="w-full object-cover" />
+            <img src={billsHero} alt="" aria-hidden="true" className="w-full object-cover" />
             <button
               onClick={() => router.history.back()}
               aria-label="Back"
@@ -122,7 +122,7 @@ function PayBillsScreen() {
         ) : (
           <div className="px-6 pt-6">
             <img
-              src={billsDetect.url}
+              src={billsDetect}
               alt=""
               aria-hidden="true"
               className="mx-auto h-40 w-auto object-contain"
@@ -203,7 +203,7 @@ function PayBillsScreen() {
               ) : (
                 <>
                   <img
-                    src={billsPlaid.url}
+                    src={billsPlaid}
                     alt=""
                     aria-hidden="true"
                     className="mx-auto mt-2 h-10 w-auto object-contain"

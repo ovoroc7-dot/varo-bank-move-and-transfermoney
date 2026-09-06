@@ -1,86 +1,86 @@
 // Exact artwork lifted from the Varo screen recording.
-import logo from "@/assets/varo/logo.png.asset.json";
-import heroDirectDeposit from "@/assets/varo/hero-direct-deposit.png.asset.json";
-import gasMoney from "@/assets/varo/gas-money.png.asset.json";
-import accountCard from "@/assets/varo/account-card.png.asset.json";
-import cashapp from "@/assets/varo/cashapp.png.asset.json";
-import depositCash from "@/assets/varo/deposit-cash.png.asset.json";
-import bankTransfer from "@/assets/varo/bank-transfer.png.asset.json";
-import savingsBag from "@/assets/varo/savings-bag.png.asset.json";
-import believeCard from "@/assets/varo/believe-card.png.asset.json";
-import advance from "@/assets/varo/advance.png.asset.json";
-import lineOfCredit from "@/assets/varo/line-of-credit.png.asset.json";
-import linkAccounts from "@/assets/varo/link-accounts.png.asset.json";
-import inviteFriends from "@/assets/varo/invite-friends.png.asset.json";
-import transfer from "@/assets/varo/transfer.png.asset.json";
-import varoToAnyone from "@/assets/varo/varo-to-anyone.png.asset.json";
-import applePay from "@/assets/varo/apple-pay.png.asset.json";
-import fundInstantly from "@/assets/varo/fund-instantly.png.asset.json";
-import manageBills from "@/assets/varo/manage-bills.png.asset.json";
-import zelle from "@/assets/varo/zelle.png.asset.json";
-import depositCheck from "@/assets/varo/deposit-check.png.asset.json";
-import directDeposit from "@/assets/varo/direct-deposit.png.asset.json";
-import addCash from "@/assets/varo/add-cash.png.asset.json";
-import findAtm from "@/assets/varo/find-atm.png.asset.json";
-import transactionHistory from "@/assets/varo/transaction-history.png.asset.json";
-import cashbackCar from "@/assets/varo/cashback-car.png.asset.json";
-import myOffers from "@/assets/varo/my-offers.png.asset.json";
-import papaJohns from "@/assets/varo/papa-johns.png.asset.json";
-import sonic from "@/assets/varo/sonic.png.asset.json";
-import catGas from "@/assets/varo/cat-gas.png.asset.json";
-import catGrocery from "@/assets/varo/cat-grocery.png.asset.json";
-import catFood from "@/assets/varo/cat-food.png.asset.json";
-import catShopping from "@/assets/varo/cat-shopping.png.asset.json";
-import navHome from "@/assets/varo/nav-home.png.asset.json";
-import navHomeActive from "@/assets/varo/nav-home-active.png.asset.json";
-import navMove from "@/assets/varo/nav-move.png.asset.json";
-import navMoveActive from "@/assets/varo/nav-move-active.png.asset.json";
-import navCashback from "@/assets/varo/nav-cashback.png.asset.json";
-import navCashbackActive from "@/assets/varo/nav-cashback-active.png.asset.json";
-import navVaro from "@/assets/varo/nav-varo.png.asset.json";
-import navVaroActive from "@/assets/varo/nav-varo-active.png.asset.json";
+import logo from "@/assets/varo/logo.png";
+import heroDirectDeposit from "@/assets/varo/hero-direct-deposit.png";
+import gasMoney from "@/assets/varo/gas-money.png";
+import accountCard from "@/assets/varo/account-card.png";
+import cashapp from "@/assets/varo/cashapp.png";
+import depositCash from "@/assets/varo/deposit-cash.png";
+import bankTransfer from "@/assets/varo/bank-transfer.png";
+import savingsBag from "@/assets/varo/savings-bag.png";
+import believeCard from "@/assets/varo/believe-card.png";
+import advance from "@/assets/varo/advance.png";
+import lineOfCredit from "@/assets/varo/line-of-credit.png";
+import linkAccounts from "@/assets/varo/link-accounts.png";
+import inviteFriends from "@/assets/varo/invite-friends.png";
+import transfer from "@/assets/varo/transfer.png";
+import varoToAnyone from "@/assets/varo/varo-to-anyone.png";
+import applePay from "@/assets/varo/apple-pay.png";
+import fundInstantly from "@/assets/varo/fund-instantly.png";
+import manageBills from "@/assets/varo/manage-bills.png";
+import zelle from "@/assets/varo/zelle.png";
+import depositCheck from "@/assets/varo/deposit-check.png";
+import directDeposit from "@/assets/varo/direct-deposit.png";
+import addCash from "@/assets/varo/add-cash.png";
+import findAtm from "@/assets/varo/find-atm.png";
+import transactionHistory from "@/assets/varo/transaction-history.png";
+import cashbackCar from "@/assets/varo/cashback-car.png";
+import myOffers from "@/assets/varo/my-offers.png";
+import papaJohns from "@/assets/varo/papa-johns.png";
+import sonic from "@/assets/varo/sonic.png";
+import catGas from "@/assets/varo/cat-gas.png";
+import catGrocery from "@/assets/varo/cat-grocery.png";
+import catFood from "@/assets/varo/cat-food.png";
+import catShopping from "@/assets/varo/cat-shopping.png";
+import navHome from "@/assets/varo/nav-home.png";
+import navHomeActive from "@/assets/varo/nav-home-active.png";
+import navMove from "@/assets/varo/nav-move.png";
+import navMoveActive from "@/assets/varo/nav-move-active.png";
+import navCashback from "@/assets/varo/nav-cashback.png";
+import navCashbackActive from "@/assets/varo/nav-cashback-active.png";
+import navVaro from "@/assets/varo/nav-varo.png";
+import navVaroActive from "@/assets/varo/nav-varo-active.png";
 
 export const art = {
-  logo: logo.url,
-  heroDirectDeposit: heroDirectDeposit.url,
-  gasMoney: gasMoney.url,
-  accountCard: accountCard.url,
-  cashapp: cashapp.url,
-  depositCash: depositCash.url,
-  bankTransfer: bankTransfer.url,
-  savingsBag: savingsBag.url,
-  believeCard: believeCard.url,
-  advance: advance.url,
-  lineOfCredit: lineOfCredit.url,
-  linkAccounts: linkAccounts.url,
-  inviteFriends: inviteFriends.url,
-  transfer: transfer.url,
-  varoToAnyone: varoToAnyone.url,
-  applePay: applePay.url,
-  fundInstantly: fundInstantly.url,
-  manageBills: manageBills.url,
-  zelle: zelle.url,
-  depositCheck: depositCheck.url,
-  directDeposit: directDeposit.url,
-  addCash: addCash.url,
-  findAtm: findAtm.url,
-  transactionHistory: transactionHistory.url,
-  cashbackCar: cashbackCar.url,
-  myOffers: myOffers.url,
-  papaJohns: papaJohns.url,
-  sonic: sonic.url,
-  catGas: catGas.url,
-  catGrocery: catGrocery.url,
-  catFood: catFood.url,
-  catShopping: catShopping.url,
-  navHome: navHome.url,
-  navHomeActive: navHomeActive.url,
-  navMove: navMove.url,
-  navMoveActive: navMoveActive.url,
-  navCashback: navCashback.url,
-  navCashbackActive: navCashbackActive.url,
-  navVaro: navVaro.url,
-  navVaroActive: navVaroActive.url,
+  logo: logo,
+  heroDirectDeposit: heroDirectDeposit,
+  gasMoney: gasMoney,
+  accountCard: accountCard,
+  cashapp: cashapp,
+  depositCash: depositCash,
+  bankTransfer: bankTransfer,
+  savingsBag: savingsBag,
+  believeCard: believeCard,
+  advance: advance,
+  lineOfCredit: lineOfCredit,
+  linkAccounts: linkAccounts,
+  inviteFriends: inviteFriends,
+  transfer: transfer,
+  varoToAnyone: varoToAnyone,
+  applePay: applePay,
+  fundInstantly: fundInstantly,
+  manageBills: manageBills,
+  zelle: zelle,
+  depositCheck: depositCheck,
+  directDeposit: directDeposit,
+  addCash: addCash,
+  findAtm: findAtm,
+  transactionHistory: transactionHistory,
+  cashbackCar: cashbackCar,
+  myOffers: myOffers,
+  papaJohns: papaJohns,
+  sonic: sonic,
+  catGas: catGas,
+  catGrocery: catGrocery,
+  catFood: catFood,
+  catShopping: catShopping,
+  navHome: navHome,
+  navHomeActive: navHomeActive,
+  navMove: navMove,
+  navMoveActive: navMoveActive,
+  navCashback: navCashback,
+  navCashbackActive: navCashbackActive,
+  navVaro: navVaro,
+  navVaroActive: navVaroActive,
 } as const;
 
 export type ArtName = keyof typeof art;

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { ArrowLeft, ChevronRight, Info, Settings } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
 import { useAccounts, formatUSD, type AccountId } from "@/lib/balances";
-import emptyActivity from "@/assets/varo/empty-activity.png.asset.json";
-import savingsPig from "@/assets/varo/savings-pig.png.asset.json";
+import emptyActivity from "@/assets/varo/empty-activity.png";
+import savingsPig from "@/assets/varo/savings-pig.png";
 
 export const Route = createFileRoute("/account/$id")({
   beforeLoad: () => {
@@ -146,7 +146,7 @@ function AccountScreen() {
                   </button>
                 </div>
                 <img
-                  src={savingsPig.url}
+                  src={savingsPig}
                   alt="Piggy bank with a coin going in"
                   className="h-32 w-auto shrink-0 object-contain"
                 />
@@ -239,7 +239,7 @@ function AccountScreen() {
           <h2 className="text-sm font-bold">Recent transactions</h2>
           <div className="py-10 text-center">
             <img
-              src={emptyActivity.url}
+              src={emptyActivity}
               alt=""
               aria-hidden="true"
               className="mx-auto h-24 w-auto object-contain"

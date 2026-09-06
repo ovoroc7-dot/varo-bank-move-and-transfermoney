@@ -1,9 +1,9 @@
 import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
-import badgeFee from "@/assets/varo/badge-fee.png.asset.json";
-import badgeDollar from "@/assets/varo/badge-dollar.png.asset.json";
-import retailers from "@/assets/varo/retailers.png.asset.json";
+import badgeFee from "@/assets/varo/badge-fee.png";
+import badgeDollar from "@/assets/varo/badge-dollar.png";
+import retailers from "@/assets/varo/retailers.png";
 
 export const Route = createFileRoute("/add-cash")({
   beforeLoad: () => {
@@ -54,7 +54,7 @@ function AddCash() {
 
           <ul className="mt-6">
             <li className="flex items-start gap-4 border-b border-border py-4">
-              <img src={badgeFee.url} alt="" aria-hidden="true" className="size-10 shrink-0" />
+              <img src={badgeFee} alt="" aria-hidden="true" className="size-10 shrink-0" />
               <div>
                 <p className="text-[15px] leading-snug">
                   Enjoy fee-free options at 7,500 CVS® and Kroger® locations²
@@ -63,7 +63,7 @@ function AddCash() {
               </div>
             </li>
             <li className="flex items-start gap-4 border-b border-border py-4">
-              <img src={badgeDollar.url} alt="" aria-hidden="true" className="size-10 shrink-0" />
+              <img src={badgeDollar} alt="" aria-hidden="true" className="size-10 shrink-0" />
               <div>
                 <p className="text-[15px] leading-snug">
                   Or add cash for a fee at other participating retailers
@@ -76,7 +76,7 @@ function AddCash() {
           </ul>
 
           <img
-            src={retailers.url}
+            src={retailers}
             alt="CVS, 7-Eleven, Kroger and Walgreens"
             className="mt-6 w-full object-contain"
           />
