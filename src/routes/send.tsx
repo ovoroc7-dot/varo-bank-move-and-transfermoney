@@ -86,6 +86,11 @@ function SendScreen() {
   const overLimit = amount > bank.balance;
   const canNext = amount >= MIN && !overLimit;
 
+  const FEE = 0; // Varo to Anyone transfers are always fee-free
+  const LARGE = 10_000;
+  const isLarge = amount >= LARGE;
+  const [largeConfirmed, setLargeConfirmed] = useState(false);
+
   function press(key: string) {
     if (key === "del") {
       setCents((c) => Math.floor(c / 10));
