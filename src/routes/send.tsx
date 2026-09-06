@@ -363,15 +363,28 @@ function SendScreen() {
               <h2 className="px-4 pb-3 pt-4 text-lg font-bold">Review your transfer</h2>
               <dl className="divide-y divide-border border-t border-border">
                 <Row label="Amount" value={formatUSD(amount)} />
+                <Row label="Fee" value={FEE === 0 ? "No fee" : formatUSD(FEE)} />
+                <Row label="Total" value={formatUSD(amount + FEE)} />
                 <Row label="To" value={nickname.trim() || recipient} />
                 <Row label="Recipient" value={recipient} />
                 {note.trim() && <Row label="For" value={note.trim()} />}
                 <Row label="From" value={`${bank.name} • ${bank.last4}`} />
                 <Row label="Arrives" value="Instantly" />
               </dl>
+              {isLarge && !largeConfirmed && (
+                <p className="flex items-start gap-2 px-4 pt-4 text-[12px] leading-snug text-muted-foreground">
+                  <Info className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+                  This is a large transfer. Please double-check the recipient and
+                  amount — sent money can't be reversed.
+                </p>
+              )}
               <div className="px-4 pt-4">
                 <button
                   onClick={() => {
+                    if (isLarge && !largeConfirmed) {
+                      setLargeConfirmed(true);
+                      return;
+                    }
                     if (spend("bank", amount)) {
                       addTransaction({
                         accountId: "bank",
@@ -385,7 +398,7 @@ function SendScreen() {
                   }}
                   className="w-full rounded-md bg-primary py-3.5 text-sm font-bold text-primary-foreground"
                 >
-                  Send money
+                  {isLarge && !largeConfirmed ? "Review & confirm" : "Send money"}
                 </button>
               </div>
             </div>
