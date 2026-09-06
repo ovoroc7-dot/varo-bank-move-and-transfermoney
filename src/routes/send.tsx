@@ -92,6 +92,7 @@ function SendScreen() {
   const [largeConfirmed, setLargeConfirmed] = useState(false);
 
   function press(key: string) {
+    setLargeConfirmed(false);
     if (key === "del") {
       setCents((c) => Math.floor(c / 10));
       return;
