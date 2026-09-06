@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowLeft, ChevronRight, Mail, MessageSquare, Wallet } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
 import { DetailScreen, Toggle } from "@/components/varo/DetailScreen";
-import cardArt from "@/assets/varo/varo-card-portrait.png.asset.json";
+import cardArt from "@/assets/varo/varo-card-portrait.png";
 
 export const Route = createFileRoute("/varo-card")({
   beforeLoad: () => {
@@ -74,7 +74,7 @@ function VaroCardScreen() {
     <DetailScreen title="Varo Debit Card">
       <div className="flex justify-center pt-2">
         <img
-          src={cardArt.url}
+          src={cardArt}
           alt="Varo Debit Visa card in the name of Joann Juckett"
           className="w-[62%] max-w-[240px]"
         />

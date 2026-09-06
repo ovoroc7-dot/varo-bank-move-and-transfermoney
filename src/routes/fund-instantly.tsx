@@ -2,7 +2,7 @@ import { createFileRoute, redirect, useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, Copy } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
-import varoCard from "@/assets/varo/varo-card.png.asset.json";
+import varoCard from "@/assets/varo/varo-card.png";
 
 export const Route = createFileRoute("/fund-instantly")({
   beforeLoad: () => {
@@ -87,7 +87,7 @@ function FundInstantly() {
           </p>
 
           <img
-            src={varoCard.url}
+            src={varoCard}
             alt="Varo purple debit Visa card in the name of Joann Juckett"
             className="mx-auto mt-6 h-auto w-56 object-contain"
           />

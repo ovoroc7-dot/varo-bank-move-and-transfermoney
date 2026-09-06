@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowLeft, ChevronDown, Search, SlidersHorizontal } from "lucide-react";
 import { isLoggedIn } from "@/lib/auth-guard";
 import { useAccounts, useTransactions, formatUSD, type AccountId, type Txn } from "@/lib/balances";
-import emptyActivity from "@/assets/varo/empty-activity.png.asset.json";
+import emptyActivity from "@/assets/varo/empty-activity.png";
 
 export const Route = createFileRoute("/transaction-history")({
   beforeLoad: () => {
@@ -188,7 +188,7 @@ function TransactionHistoryScreen() {
               </h2>
               <div className="rounded-lg border border-border py-12 text-center">
                 <img
-                  src={emptyActivity.url}
+                  src={emptyActivity}
                   alt=""
                   aria-hidden="true"
                   className="mx-auto h-24 w-auto object-contain"
